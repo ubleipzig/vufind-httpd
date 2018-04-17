@@ -8,8 +8,8 @@ Also i created a new *entrypoint* that modifies the configuration based on the v
 
 ## supported tags
 
-* 2.4-*, 2.4, 2, latest (2.4/Dockerfile)
-* 2.4-*-vufind, 2.4-vufind1, 2-vufind1, vufind1 (vufind1/Dockerfile)
+* 2.4-*, 2.4, 2, latest ([2.4/Dockerfile])
+* 2.4-*-vufind, 2.4-vufind1, 2-vufind1, vufind1 ([vufind1/Dockerfile])
 
 ## Usage of the image
 
@@ -27,8 +27,10 @@ You can start the webserver as follows:n:
 
 ## Notes
 
-* The *vufind1\**-Image exists only for development purposes. It enables developers to easily switch containers when they have VuFind1-work to do. The `BASE_PATH`-Option will not work for this Images
+* The _*-vufind1_-Image exists only for development purposes. It enables developers to easily switch containers when they have VuFind1-work to do. The `BASE_PATH`-Option will not work for this Images
 * there are no tests until i know how to write them for Docker-images
 
 [httpd:alpine]: https://hub.docker.com/_/httpd/
+[2.4/Dockerfile]: https://git.sc.uni-leipzig.de/ubl/bdd_dev/docker/vufind-httpd/blob/master/2.4/Dockerfile
+[vufind1/Dockerfile]: https://git.sc.uni-leipzig.de/ubl/bdd_dev/docker/vufind-httpd/blob/master/vufind1/Dockerfile
 [vufind-php]: https://hub.docker.com/r/ubleipzig/vufind-php/
