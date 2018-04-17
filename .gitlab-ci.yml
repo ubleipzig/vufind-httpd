@@ -1,0 +1,45 @@
+stages:
+- '2.4'
+
+'2.4':
+  stage: image
+  image: docker:latest
+  services:
+  - docker:dind
+  script: |
+    mkdir -p ~/.docker && echo "$DOCKER_AUTH_CONFIG" >~/.docker/config.json
+    export suffix=`expr $CI_COMMIT_TAG ':' '2.4-\(.*\)'`
+    cd 2.4
+    docker build --pull -t ubleipzig/vufind-httpd:2.4-${suffix} .
+    docker push ubleipzig/vufind-httpd:2.4-${suffix}
+    for tag in "latest" "2" "2.4"; do
+      docker tag ubleipzig/vufind-httpd:2.4-${suffix} ubleipzig/vufind-httpd:${tag}
+      docker push ubleipzig/vufind-httpd:${tag}
+    done
+  tags:
+  - docker
+  only:
+  - /^2.4/
+  except:
+  - branches
+
+vufind1:
+  stage: image
+  image: docker:latest
+  services:
+  - docker:dind
+  script: |
+    mkdir -p ~/.docker && echo "$DOCKER_AUTH_CONFIG" >~/.docker/config.json
+    export suffix=`expr ${CI_COMMIT_TAG} ':' 'vufind1/2.4-\(.*\)'`
+    cd vufind1
+    docker build --pull -t ubleipzig/vufind-httpd:2.4-${suffix}-vufind1 .
+    for tag in "latest" "2" "2.4"; do
+      docker tag ubleipzig/vufind-httpd-vufind1:2.4-${suffix}-vufind1 ubleipzig/vufind-httpd:${tag}-vufind1
+      docker push ubleipzig/vufind-httpd:${tag}-vufind1
+    done
+  tags:
+  - docker
+  only:
+  - /^vufind1\//
+  except:
+  - branches

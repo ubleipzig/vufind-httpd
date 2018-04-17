@@ -1,0 +1,10 @@
+FROM httpd:2.4-alpine
+ENTRYPOINT [ "/docker-entrypoint" ]
+CMD ["httpd-foreground"]
+
+ENV BASE_PATH=""
+
+ADD assets/docker-entrypoint /docker-entrypoint
+RUN chmod a+x /docker-entrypoint
+
+ADD assets/httpd.conf /usr/local/apache2/conf/httpd.conf
