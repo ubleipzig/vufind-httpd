@@ -9,7 +9,7 @@ Weiterhin wurde ein eigener *entrypoint* erstellt, welcher den Pfadanteil der Re
 ## Unterstützte tags
 
 * 2.4-*, 2.4, 2, latest (2.4/Dockerfile)
-* 2.4-*-vufind, 2.4-vufind1, 2-vufind1, vufind1 (vufind1/Dockerfile)
+* vufind1-2.4-*, vufind1-2.4, vufind1-2, vufind1 ([vufind1/Dockerfile])
 
 ## Nutzung des Images
 

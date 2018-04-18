@@ -1,36 +1,43 @@
 # vufind-httpd
 
-*vufind-httpd* is vufinds default webserver, which delivers file-requests and passes requests through to the php-service. the image is based on [httpd:alpine].
+This repository holds the Dockerfiles and VuFind-configuration for the Apache2-webserver.
 
-The images is extended by a default configuration with VuFind-specific configuration. The configuration expects the VuFind-Sources under `/usr/local/vufind`, and the cache-files which are built at VuFind-runtime under `/var/cache/vufind`.
+## Image-Tags
 
-Also i created a new *entrypoint* that modifies the configuration based on the value from the environment variable `BASE_PATH`. If you want to access VuFind unter http://localhost/vufind you need to provide the environment variable `BASE_PATH=/vufind` on container-create.
+The images are created via a gitlab-pipeline, see [.gitlab-ci.yml]. There are several tags which can be used:
 
-## supported tags
+* `2.4-*`: points to a specific build. Each build is specified by a number. The higher, the latter.
+* `2.4`: points to the latest build from the `2.4`-line. It is the same as the last `2.4-*`.
+* `2`: points to the latest build from the `2`-line. If there will be a `2.6`-line it will point to that latest build.
+* `latest`: always points to the latest build.
+* `*-vufind1`:  follows the rules above, but points to the image modified for VuFind1
+* `vufind1`: always points to the latest image which is modified for VuFind1
 
-* 2.4-*, 2.4, 2, latest ([2.4/Dockerfile])
-* 2.4-*-vufind, 2.4-vufind1, 2-vufind1, vufind1 ([vufind1/Dockerfile])
+## create Images
 
-## Usage of the image
+Pushing the Code to the Repository does nothing. Images are created via GIT-Tags.
 
-Usage makes only sense in connection with with [vufind-php], which provides the application server of VuFind. The server needs to be available as host *php*. Also the  VuFind-files need to be connected to the container, so that the webserver can serve static content. VuFind creates additional cache-files, which have to be served by the webserver. This folder needs to be connected to the container as well.
-
-You can start the webserver as follows:n:
 ```
-#$ docker run --name httpd \
-  --link php:php \
-  --volume /path/to/vufind:/usr/local/vufind:ro \
-  --volume /path/to/cache:/var/cache/vufind:ro \
-  --environment BASE_PATH=/vufind
-  ubleipzig/vufind-httpd
+git tag -a 2.4-2 -m 'minor optimization'
+git push origin 2.4-2
 ```
+_this will create a new image with a tag named `2.4-2`. Also the Tags `2.4`, `2`, and `latest` will point to this image._
 
-## Notes
+```
+git tag -a vufind1-2.4-2 -m 'minor optimization'
+git push origin vufind1-2.4-2
+```
+_this will create a new image with a tag named `vufind1-2.4-2`. Also the Tags `vufind1-2.4`, `vufind1-2`, and `vufind1` will point to this image._
 
-* The _*-vufind1_-Image exists only for development purposes. It enables developers to easily switch containers when they have VuFind1-work to do. The `BASE_PATH`-Option will not work for this Images
-* there are no tests until i know how to write them for Docker-images
+Only Repository-Masters will be able to create a new Tag.
+## Contribution
 
-[httpd:alpine]: https://hub.docker.com/_/httpd/
-[2.4/Dockerfile]: https://git.sc.uni-leipzig.de/ubl/bdd_dev/docker/vufind-httpd/blob/master/2.4/Dockerfile
-[vufind1/Dockerfile]: https://git.sc.uni-leipzig.de/ubl/bdd_dev/docker/vufind-httpd/blob/master/vufind1/Dockerfile
-[vufind-php]: https://hub.docker.com/r/ubleipzig/vufind-php/
+In case you want to contribute please fork and make a pull-request at [Gitlab-hosting of Leipzig University]. This is due to internal policies and the higher flexibility when it comes to build images and push to [Docker-Hub]
+
+## Todo
+
+* Tests
+
+[.gitlab-ci.yml]: https://git.sc.uni-leipzig.de/ubl/bdd_dev/docker/vufind-httpd/blob/master/.gitlab-ci.yml
+[Gitlab-hosting of Leipzig University]: https://git.sc.uni-leipzig.de/ubl/bdd_dev/docker/vufind-httpd
+[Docker-Hub]: https://hub.docker.com/r/ubleipzig/vufind-httpd/
