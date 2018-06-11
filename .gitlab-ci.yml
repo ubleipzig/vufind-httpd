@@ -44,3 +44,20 @@ vufind1:
   - /^vufind1-/
   except:
   - branches
+
+github_mirror:
+  stage: mirror
+  image:
+    name: alpine/git
+    entrypoint: [ "/bin/sh", "-c" ]
+  variables:
+    GIT_STRATEGY: clone
+    GIT_CHECKOUT: "false"
+  script: |
+    cd /tmp
+    git clone --mirror ${CI_REPOSITORY_URL} project
+    cd project
+    git remote add github https://${GITHUB_USER}:${GITHUB_TOKEN}@github.com/ubleipzig/vufind-httpd.git
+    git push --mirror github
+  tags:
+  - docker

@@ -10,7 +10,7 @@ The images are created via a gitlab-pipeline, see [.gitlab-ci.yml]. There are se
 * `2.4`: points to the latest build from the `2.4`-line. It is the same as the last `2.4-*`.
 * `2`: points to the latest build from the `2`-line. If there will be a `2.6`-line it will point to that latest build.
 * `latest`: always points to the latest build.
-* `*-vufind1`:  follows the rules above, but points to the image modified for VuFind1
+* `vufind1-*`:  follows the rules above, but points to the image modified for VuFind1
 * `vufind1`: always points to the latest image which is modified for VuFind1
 
 ## create Images
