@@ -1,5 +1,6 @@
 stages:
 - image
+- mirror
 
 '2.4':
   stage: image
