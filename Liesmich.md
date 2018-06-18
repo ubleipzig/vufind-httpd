@@ -21,30 +21,8 @@ $# docker run --name httpd \
   --link php:php \
   --volume /path/to/vufind:/usr/local/vufind:ro \
   --volume /path/to/cache:/var/cache/vufind:ro \
-  --environment BASE_PATH=/vufind \
+  --environment BASE_PATH=/vufind
   ubleipzig/vufind-httpd
-```
-
-## erweiterte Konfiguration
-
-### SSL
-
-Um den Container mit SSL-Unterstützung zu starten, muss der Startbefehl angepasst werden:
-
-    httpd -D FOREGROUND -D ssl
-
-Dadurch werden in Apache2 erforderiche Module und Konfigurationen geladen, um SSL an Port 443 zur Verfügung zu stellen. Als Schlüssel und Zertifikate werden im Image eingebaute selbstignierte Objekte benutzt. Möchte man eigens erstellte Objekte nutzen, so müssen die Dateien `/usr/local/apache2/conf/server.key` und `/usr/local/apache2/conf/server.crt` entsprechend überschrieben werden. z.B.
-
-```bash
-$# docker run --name httpd \
-  --link php:php \
-  --volume /path/to/vufind:/usr/local/vufind:ro \
-  --volume /path/to/cache:/var/cache/vufind:ro \
-  --volume /path/to/ssl_key.pem:/usr/local/apache2/conf/server.key:ro \
-  --volume /path/to/ssl_cert.pem:/usr/local/apache2/conf/server.crt \
-  --environment BASE_PATH=/vufind \
-  ubleipzig/vufind-httpd \
-  httpd -D FOREGROUND -D ssl
 ```
 
 ## Anmerkungen

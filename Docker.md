@@ -24,27 +24,6 @@ You can start the webserver as follows:n:
   --environment BASE_PATH=/vufind
   ubleipzig/vufind-httpd
 ```
-## advanced configuration
-
-### SSL
-
-To start containers with ssl-support enabled one has to modify the containers startup command:
-
-    httpd -D FOREGROUND -D ssl
-
-By this apache will load all necessary modules and configuration to enable SSL on port 443. The provided key and certificate are self-signed and not meant for production usage. to provide a valid key and certificate the files `/usr/local/apache2/conf/server.key` and `/usr/local/apache2/conf/server.crt` have to be overridden e.g.
-
-```bash
-$# docker run --name httpd \
-  --link php:php \
-  --volume /path/to/vufind:/usr/local/vufind:ro \
-  --volume /path/to/cache:/var/cache/vufind:ro \
-  --volume /path/to/ssl_key.pem:/usr/local/apache2/conf/server.key:ro \
-  --volume /path/to/ssl_cert.pem:/usr/local/apache2/conf/server.crt \
-  --environment BASE_PATH=/vufind \
-  ubleipzig/vufind-httpd \
-  httpd -D FOREGROUND -D ssl
-```
 
 ## Notes
 
