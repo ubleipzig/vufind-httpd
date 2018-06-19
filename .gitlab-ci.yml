@@ -10,7 +10,16 @@ stages:
   script: |
     mkdir -p ~/.docker && echo "$DOCKER_AUTH_CONFIG" >~/.docker/config.json
     export suffix=`expr $CI_COMMIT_TAG ':' '2.4-\(.*\)'`
-    docker build --pull -t ubleipzig/vufind-httpd:2.4 -f 2.4/Dockerfile 2.4
+    docker build --pull \
+      --build-arg HTTP_PROXY=${HTTP_PROXY} \
+      --build-arg HTTPS_PROXY=${HTTPS_PROXY} \
+      --build-arg NO_PROXY=${NO_PROXY} \
+      --build-arg http_proxy=${HTTP_PROXY} \
+      --build-arg https_proxy=${HTTPS_PROXY} \
+      --build-arg no_proxy=${NO_PROXY} \
+      -t ubleipzig/vufind-httpd:2.4 \
+      -f 2.4/Dockerfile \
+      2.4
     docker push ubleipzig/vufind-httpd:2.4
     for tag in "latest" "2" "2.4-${suffix}"; do
       docker tag ubleipzig/vufind-httpd:2.4 ubleipzig/vufind-httpd:${tag}
@@ -31,7 +40,16 @@ vufind1:
   script: |
     mkdir -p ~/.docker && echo "$DOCKER_AUTH_CONFIG" >~/.docker/config.json
     export suffix=`expr ${CI_COMMIT_TAG} ':' 'vufind1-2.4-\(.*\)'`
-    docker build --pull -t ubleipzig/vufind-httpd:vufind1 -f 2.4/vufind1/Dockerfile 2.4/vufind1
+    docker build --pull \
+      --build-arg HTTP_PROXY=${HTTP_PROXY} \
+      --build-arg HTTPS_PROXY=${HTTPS_PROXY} \
+      --build-arg NO_PROXY=${NO_PROXY} \
+      --build-arg http_proxy=${HTTP_PROXY} \
+      --build-arg https_proxy=${HTTPS_PROXY} \
+      --build-arg no_proxy=${NO_PROXY} \
+      -t ubleipzig/vufind-httpd:vufind1 \
+      -f 2.4/vufind1/Dockerfile \
+      2.4/vufind1
     docker push ubleipzig/vufind-httpd:vufind1
     for tag in "2" "2.4" "2.4-${suffix}"; do
       docker tag ubleipzig/vufind-httpd:vufind1 ubleipzig/vufind-httpd:vufind1-${tag}
