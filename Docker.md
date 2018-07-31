@@ -28,10 +28,11 @@ You can start the webserver as follows:
 ## advanced configuration
 
 * `BASE_PATH=""`: the base-path under which VuFind is reachable
+* `FCGI_TARGET=php:9000`: the FCGI target where the application service is accessible
 
 ## Notes
 
-* The _vufind1-*_-Image exists only for development purposes. It enables developers to easily switch containers when they have VuFind1-work to do. The `BASE_PATH`-Option will not work for this Images
+* The _vufind1-*_-Image exists only for development purposes. It enables developers to easily switch containers when they have VuFind1-work to do. The options from *advanced configuration* will not work for this Images
 * There are no tests until i know how to write them for Docker-images
 
 [VuFind]: https://github.com/vufind-org/vufind
