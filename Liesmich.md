@@ -28,10 +28,11 @@ $# docker run --name httpd \
 ## erweiterte Konfiguration
 
 * `BASE_PATH=""`: der Basis-Pfad, an dem VuFind erreichbar sein soll
+* `FCGI_TARGET=php:9000`: das FCGI-Ziel an welchem die Applikation erreichbar ist
 
 ## Anmerkungen
 
-* Das *vufind1*-Image existiert, um Entwicklern das Umschalten zu VuFind1-Instanzen so einfach wie möglich zu machen. Hier wird keine weitere Arbeit investiert, z.B. funktioniert die Pfad-Konfiguration über die `BASE_PATH`-Variable nicht.
+* Das *vufind1*-Image existiert, um Entwicklern das Umschalten zu VuFind1-Instanzen so einfach wie möglich zu machen. Hier wird keine weitere Arbeit investiert, z.B. funktionieren alle Optionen aus *erweiterte Konfiguration* nicht.
 * es müssen Tests geschrieben werden, sobald ich weiß, wie man das für Docker-Images am besten macht
 
 [VuFind]: https://github.com/vufind-org/vufind
